@@ -311,7 +311,6 @@ public class CatalogServiceTest
     public async Task UpdateItem_Success()
     {
         // arrange
-        var id = 1;
         var testResult = "Success";
 
         _catalogItemRepository.Setup(s => s.UpdateItemAsync(
@@ -333,7 +332,6 @@ public class CatalogServiceTest
     public async Task UpdateItem_Failed()
     {
         // arrange
-        var id = 1;
         string? testResult = null;
 
         _catalogItemRepository.Setup(s => s.UpdateItemAsync(
@@ -543,7 +541,6 @@ public class CatalogServiceTest
             It.IsAny<string>(),
             It.IsAny<int>(),
             It.IsAny<int>(),
-
             It.IsAny<string>(),
             It.IsAny<string>())).ReturnsAsync(testResult);
 
