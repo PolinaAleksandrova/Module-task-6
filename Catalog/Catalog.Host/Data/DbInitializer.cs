@@ -62,18 +62,18 @@ public static class DbInitializer
     {
         return new List<CatalogItem>()
         {
-            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 1, Name = "The Picture of Dorian Gray", Price = 46, PictureFileName = "1.png" },
-            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 2, Name = "The Picture of Dorian Gray & Other Works", Price = 7, PictureFileName = "2.png" },
-            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 3, Name = "The Importance of Being Earnest", Price = 4, PictureFileName = "3.png" },
-            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 4, Name = "Collins Complete Works of Oscar Wilde", Price = 15, PictureFileName = "4.png" },
-            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 5, Name = "The Importance of Being Earnest and Other Plays", Price = 5, PictureFileName = "5.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 6, Name = "Carrie", Price = 8, PictureFileName = "6.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 7, Name = "Salem's Lot", Price = 21, PictureFileName = "7.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 8, Name = "The Shining", Price = 10, PictureFileName = "8.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 9, Name = "Rage", Price = 15, PictureFileName = "9.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 10, Name = "The Stand: The Complete and Uncut Edition", Price = 7, PictureFileName = "10.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 11, Name = "The Mist", Price = 7, PictureFileName = "11.png" },
-            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 12, Name = "The Long Walk", Price = 9, PictureFileName = "12.png" }
+            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 1, Name = "The Picture of Dorian Gray", Price = 46, PictureFileName = "1.jpg" },
+            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 2, Name = "The Picture of Dorian Gray & Other Works", Price = 7, PictureFileName = "2.jpg" },
+            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 3, Name = "The Importance of Being Earnest", Price = 4, PictureFileName = "3.jpg" },
+            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 4, Name = "Collins Complete Works of Oscar Wilde", Price = 15, PictureFileName = "4.jpg" },
+            new CatalogItem { CatalogBrandId = 1, CharacteristicId = 5, Name = "The Importance of Being Earnest and Other Plays", Price = 5, PictureFileName = "5.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 6, Name = "Carrie", Price = 8, PictureFileName = "6.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 7, Name = "Salem's Lot", Price = 21, PictureFileName = "7.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 8, Name = "The Shining", Price = 10, PictureFileName = "8.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 9, Name = "Rage", Price = 15, PictureFileName = "9.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 10, Name = "The Stand: The Complete and Uncut Edition", Price = 7, PictureFileName = "10.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 11, Name = "The Mist", Price = 7, PictureFileName = "11.jpg" },
+            new CatalogItem { CatalogBrandId = 2, CharacteristicId = 12, Name = "The Long Walk", Price = 9, PictureFileName = "12.jpg" }
         };
     }
 }
