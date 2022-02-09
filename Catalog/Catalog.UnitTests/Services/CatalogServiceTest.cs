@@ -3,6 +3,7 @@ using Catalog.Host.Data.Entities;
 using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Enums;
 using Catalog.Host.Models.Response;
+using Catalog.Host.Models.Requests;
 
 namespace Catalog.UnitTests.Services;
 
@@ -12,7 +13,7 @@ public class CatalogServiceTest
 
     private readonly Mock<ICatalogItemRepository> _catalogItemRepository;
     private readonly Mock<ICatalogBrandRepository> _catalogBrandRepository;
-    private readonly Mock<ISpecificationRepository> _specificationRepository;
+    private readonly Mock<ICharacteristicRepository> _specificationRepository;
     private readonly Mock<IMapper> _mapper;
     private readonly Mock<IDbContextWrapper<ApplicationDbContext>> _dbContextWrapper;
     private readonly Mock<ILogger<CatalogService>> _logger;
@@ -20,7 +21,7 @@ public class CatalogServiceTest
     private readonly CatalogItem _testItem = new CatalogItem()
     {
         Name = "Name",
-        SpecificationId = 1,
+        CharacteristicId = 1,
         Price = 1000,
         CatalogBrandId = 1,
         PictureFileName = "1.png"
@@ -28,25 +29,14 @@ public class CatalogServiceTest
 
     private readonly CatalogBrand _testBrand = new CatalogBrand()
     {
-        Brand = "Name"
-    };
-
-    private readonly Specification _testSpecification = new Specification()
-    {
-        Socket = "Socket",
-        NumberOfCores = 2,
-        NumberOfThreads = 4,
-        ClockFrequency = 3.6,
-        MaximumClockFrequency = 4.0,
-        MemoryType = "MemoryType",
-        VideoLink = "VideoLink"
+        Author = "Name"
     };
 
     public CatalogServiceTest()
     {
         _catalogItemRepository = new Mock<ICatalogItemRepository>();
         _catalogBrandRepository = new Mock<ICatalogBrandRepository>();
-        _specificationRepository = new Mock<ISpecificationRepository>();
+        _specificationRepository = new Mock<ICharacteristicRepository>();
         _mapper = new Mock<IMapper>();
         _dbContextWrapper = new Mock<IDbContextWrapper<ApplicationDbContext>>();
         _logger = new Mock<ILogger<CatalogService>>();
@@ -191,7 +181,7 @@ public class CatalogServiceTest
             {
                 new CatalogBrand()
                 {
-                    Brand = _testBrand.Brand,
+                    Author = _testBrand.Author,
                 },
             },
             TotalCount = testTotalCount,
@@ -199,12 +189,12 @@ public class CatalogServiceTest
 
         var catalogBrandSuccess = new CatalogBrand()
         {
-            Brand = _testBrand.Brand
+            Author = _testBrand.Author
         };
 
         var catalogBrandDtoSuccess = new CatalogBrandDto()
         {
-            Brand = _testBrand.Brand
+            Author = _testBrand.Author
         };
 
         _catalogItemRepository.Setup(s => s.GetBrandsAsync(
@@ -257,7 +247,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddItemAsync(_testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.SpecificationId, _testItem.PictureFileName);
+        var result = await _catalogService.AddItemAsync(_testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
 
         // assert
         result.Should().Be(testResult);
@@ -277,7 +267,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddItemAsync(_testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.SpecificationId, _testItem.PictureFileName);
+        var result = await _catalogService.AddItemAsync(_testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
 
         // assert
         result.Should().Be(testResult);
@@ -333,7 +323,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateItemAsync(id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.SpecificationId, _testItem.PictureFileName);
+        var result = await _catalogService.UpdateItemAsync(id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
 
         // assert
         result.Should().Be(testResult);
@@ -355,7 +345,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateItemAsync(id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.SpecificationId, _testItem.PictureFileName);
+        var result = await _catalogService.UpdateItemAsync(id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
 
         // assert
         result.Should().Be(testResult);
@@ -371,7 +361,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddBrandAsync(_testBrand.Brand);
+        var result = await _catalogService.AddBrandAsync(_testBrand.Author);
 
         // assert
         result.Should().Be(testResult);
@@ -387,7 +377,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddBrandAsync(_testBrand.Brand);
+        var result = await _catalogService.AddBrandAsync(_testBrand.Author);
 
         // assert
         result.Should().Be(testResult);
@@ -439,7 +429,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateBrandAsync(id, _testBrand.Brand);
+        var result = await _catalogService.UpdateBrandAsync(id, _testBrand.Author);
 
         // assert
         result.Should().Be(testResult);
@@ -457,19 +447,19 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateBrandAsync(id, _testBrand.Brand);
+        var result = await _catalogService.UpdateBrandAsync(id, _testBrand.Author);
 
         // assert
         result.Should().Be(testResult);
     }
 
     [Fact]
-    public async Task AddSpecification_Success()
+    public async Task AddCharacteristic_Success()
     {
         // arrange
         var testResult = 1;
 
-        _specificationRepository.Setup(s => s.AddSpecificationAsync(
+        _specificationRepository.Setup(s => s.AddCharacteristicAsync(
             It.IsAny<string>(),
             It.IsAny<int>(),
             It.IsAny<int>(),
@@ -479,7 +469,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddSpecificationAsync(_testSpecification.Socket, _testSpecification.NumberOfCores, _testSpecification.NumberOfThreads, _testSpecification.ClockFrequency, _testSpecification.MaximumClockFrequency, _testSpecification.MemoryType, _testSpecification.VideoLink);
+        var result = await _catalogService.AddCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
 
         // assert
         result.Should().Be(testResult);
@@ -491,7 +481,7 @@ public class CatalogServiceTest
         // arrange
         int? testResult = null;
 
-        _specificationRepository.Setup(s => s.AddSpecificationAsync(
+        _specificationRepository.Setup(s => s.AddCharacteristicAsync(
             It.IsAny<string>(),
             It.IsAny<int>(),
             It.IsAny<int>(),
@@ -501,7 +491,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddSpecificationAsync(_testSpecification.Socket, _testSpecification.NumberOfCores, _testSpecification.NumberOfThreads, _testSpecification.ClockFrequency, _testSpecification.MaximumClockFrequency, _testSpecification.MemoryType, _testSpecification.VideoLink);
+        var result = await _catalogService.AddCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
 
         // assert
         result.Should().Be(testResult);
@@ -514,11 +504,11 @@ public class CatalogServiceTest
         var id = 1;
         var testResult = "Success";
 
-        _specificationRepository.Setup(s => s.RemoveSpecificationAsync(
+        _specificationRepository.Setup(s => s.RemoveCharacteristicAsync(
             It.IsAny<int>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.RemoveSpecificationAsync(id);
+        var result = await _catalogService.RemoveCharacteristicAsync(id);
 
         // assert
         result.Should().Be(testResult);
@@ -531,11 +521,11 @@ public class CatalogServiceTest
         var id = 1;
         string? testResult = null;
 
-        _specificationRepository.Setup(s => s.RemoveSpecificationAsync(
+        _specificationRepository.Setup(s => s.RemoveCharacteristicAsync(
             It.IsAny<int>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.RemoveSpecificationAsync(id);
+        var result = await _catalogService.RemoveCharacteristicAsync(id);
 
         // assert
         result.Should().Be(testResult);
@@ -548,7 +538,7 @@ public class CatalogServiceTest
         var id = 1;
         var testResult = "Success";
 
-        _specificationRepository.Setup(s => s.UpdateSpecificationAsync(
+        _specificationRepository.Setup(s => s.UpdateCharacteristicAsync(
             It.IsAny<int>(),
             It.IsAny<string>(),
             It.IsAny<int>(),
@@ -559,7 +549,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateSpecificationAsync(id, _testSpecification.Socket, _testSpecification.NumberOfCores, _testSpecification.NumberOfThreads, _testSpecification.ClockFrequency, _testSpecification.MaximumClockFrequency, _testSpecification.MemoryType, _testSpecification.VideoLink);
+        var result = await _catalogService.UpdateCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
 
         // assert
         result.Should().Be(testResult);
@@ -572,7 +562,7 @@ public class CatalogServiceTest
         var id = 1;
         string? testResult = null;
 
-        _specificationRepository.Setup(s => s.UpdateSpecificationAsync(
+        _specificationRepository.Setup(s => s.UpdateCharacteristicAsync(
             It.IsAny<int>(),
             It.IsAny<string>(),
             It.IsAny<int>(),
@@ -583,7 +573,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateSpecificationAsync(id, _testSpecification.Socket, _testSpecification.NumberOfCores, _testSpecification.NumberOfThreads, _testSpecification.ClockFrequency, _testSpecification.MaximumClockFrequency, _testSpecification.MemoryType, _testSpecification.VideoLink);
+        var result = await _catalogService.UpdateCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
 
         // assert
         result.Should().Be(testResult);
