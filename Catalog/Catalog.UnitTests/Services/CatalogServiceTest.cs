@@ -13,7 +13,7 @@ public class CatalogServiceTest
 
     private readonly Mock<ICatalogItemRepository> _catalogItemRepository;
     private readonly Mock<ICatalogBrandRepository> _catalogBrandRepository;
-    private readonly Mock<ICharacteristicRepository> _specificationRepository;
+    private readonly Mock<ICharacteristicRepository> _characteristicRepository;
     private readonly Mock<IMapper> _mapper;
     private readonly Mock<IDbContextWrapper<ApplicationDbContext>> _dbContextWrapper;
     private readonly Mock<ILogger<CatalogService>> _logger;
@@ -36,7 +36,7 @@ public class CatalogServiceTest
     {
         _catalogItemRepository = new Mock<ICatalogItemRepository>();
         _catalogBrandRepository = new Mock<ICatalogBrandRepository>();
-        _specificationRepository = new Mock<ICharacteristicRepository>();
+        _characteristicRepository = new Mock<ICharacteristicRepository>();
         _mapper = new Mock<IMapper>();
         _dbContextWrapper = new Mock<IDbContextWrapper<ApplicationDbContext>>();
         _logger = new Mock<ILogger<CatalogService>>();
@@ -323,7 +323,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateItemAsync(id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
+        var result = await _catalogService.UpdateItemAsync(_testCharacteristic.id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
 
         // assert
         result.Should().Be(testResult);
@@ -345,7 +345,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateItemAsync(id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
+        var result = await _catalogService.UpdateItemAsync(_testCharacteristic.id, _testItem.Name, _testItem.CatalogBrandId, _testItem.Price, _testItem.CharacteristicId, _testItem.PictureFileName);
 
         // assert
         result.Should().Be(testResult);
@@ -459,7 +459,7 @@ public class CatalogServiceTest
         // arrange
         var testResult = 1;
 
-        _specificationRepository.Setup(s => s.AddCharacteristicAsync(
+        _characteristicRepository.Setup(s => s.AddCharacteristicAsync(
             It.IsAny<string>(),
             It.IsAny<int>(),
             It.IsAny<int>(),
@@ -469,19 +469,19 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
+        var result = await _catalogService.AddCharacteristicAsync(_testCharacteristic.id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testCharacteristic.NumberOfPages, _testCharacteristic.Language);
 
         // assert
         result.Should().Be(testResult);
     }
 
     [Fact]
-    public async Task AddSpecification_Failed()
+    public async Task AddCharacteristic_Failed()
     {
         // arrange
         int? testResult = null;
 
-        _specificationRepository.Setup(s => s.AddCharacteristicAsync(
+        _characteristicRepository.Setup(s => s.AddCharacteristicAsync(
             It.IsAny<string>(),
             It.IsAny<int>(),
             It.IsAny<int>(),
@@ -491,20 +491,20 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.AddCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
+        var result = await _catalogService.AddCharacteristicAsync(_testCharacteristic.id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testCharacteristic.NumberOfPages, _testCharacteristic.Language);
 
         // assert
         result.Should().Be(testResult);
     }
 
     [Fact]
-    public async Task RemoveSpecification_Success()
+    public async Task RemoveCharacteristic_Success()
     {
         // arrange
         var id = 1;
         var testResult = "Success";
 
-        _specificationRepository.Setup(s => s.RemoveCharacteristicAsync(
+        _characteristicRepository.Setup(s => s.RemoveCharacteristicAsync(
             It.IsAny<int>())).ReturnsAsync(testResult);
 
         // act
@@ -515,13 +515,13 @@ public class CatalogServiceTest
     }
 
     [Fact]
-    public async Task RemoveSpecification_Failed()
+    public async Task RemoveCharacteristic_Failed()
     {
         // arrange
         var id = 1;
         string? testResult = null;
 
-        _specificationRepository.Setup(s => s.RemoveCharacteristicAsync(
+        _characteristicRepository.Setup(s => s.RemoveCharacteristicAsync(
             It.IsAny<int>())).ReturnsAsync(testResult);
 
         // act
@@ -532,37 +532,36 @@ public class CatalogServiceTest
     }
 
     [Fact]
-    public async Task UpdateSpecification_Success()
+    public async Task UpdateCharacteristic_Success()
     {
         // arrange
         var id = 1;
         var testResult = "Success";
 
-        _specificationRepository.Setup(s => s.UpdateCharacteristicAsync(
+        _characteristicRepository.Setup(s => s.UpdateCharacteristicAsync(
             It.IsAny<int>(),
             It.IsAny<string>(),
             It.IsAny<int>(),
             It.IsAny<int>(),
-            It.IsAny<double>(),
-            It.IsAny<double>(),
+
             It.IsAny<string>(),
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
+        var result = await _catalogService.UpdateCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testCharacteristic.NumberOfPages, _testCharacteristic.Language);
 
         // assert
         result.Should().Be(testResult);
     }
 
     [Fact]
-    public async Task UpdateSpecification_Failed()
+    public async Task UpdateCharacteristic_Failed()
     {
         // arrange
         var id = 1;
         string? testResult = null;
 
-        _specificationRepository.Setup(s => s.UpdateCharacteristicAsync(
+        _characteristicRepository.Setup(s => s.UpdateCharacteristicAsync(
             It.IsAny<int>(),
             It.IsAny<string>(),
             It.IsAny<int>(),
@@ -573,7 +572,7 @@ public class CatalogServiceTest
             It.IsAny<string>())).ReturnsAsync(testResult);
 
         // act
-        var result = await _catalogService.UpdateCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testSpecification.NumberOfPages, _testSpecification.Language);
+        var result = await _catalogService.UpdateCharacteristicAsync(id, _testCharacteristic.Publisher, _testCharacteristic.YearOfPublishing, _testCharacteristic.NumberOfPages, _testCharacteristic.Language);
 
         // assert
         result.Should().Be(testResult);
